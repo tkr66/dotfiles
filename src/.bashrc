@@ -175,7 +175,6 @@ if ! shopt -oq posix; then
 fi
 
 complete -C ~/go/bin/gocomplete go
-eval "$(vfox activate bash)"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
