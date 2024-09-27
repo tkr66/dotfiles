@@ -85,8 +85,13 @@ rust: asdf # Install rust
 	fi
 
 .PHONY: zellij
-zellij: rust # Install zellij a Terminal Multiplexers
+zellij: rust # Install zellij, a terminal multiplexer
 	cargo install --locked zellij
+	$@ --version
+
+.PHONY: usage
+usage: rust # Install usage, a specification for CLIs
+	cargo install usage-cli
 	$@ --version
 
 .PHONY: python

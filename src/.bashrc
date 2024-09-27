@@ -26,7 +26,6 @@ alias clip="/mnt/c/Windows/System32/clip.exe"
 alias explorer="/mnt/c/Windows/explorer.exe"
 alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 if command -v vim >/dev/null; then
-  alias vi=$(command -v vim)
   export GIT_EDITOR=$(command -v vim)
   export EDITOR=$(command -v vim)
 fi
@@ -192,3 +191,4 @@ if [ ! -d "$XDG_RUNTIME_DIR" ]; then
   sudo chown "$UID:$UID" "$XDG_RUNTIME_DIR"
   echo "Created $XDG_RUNTIME_DIR"
 fi
+eval "$(mise activate bash)"
