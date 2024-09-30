@@ -1,7 +1,6 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
 # functions
 get_current_git_branch(){
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -50,6 +49,7 @@ a=(
   "$PATH",
   "$HOME/go/bin",
   "$HOME/.config/elixir/ls/rel",
+  "$HOME/.local/bin",
   ""
   )
   echo ${a[@]}
@@ -159,9 +159,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-[ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
-[ -f ~/.asdf/completions/asdf.bash ] && source ~/.asdf/completions/asdf.bash
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -174,9 +171,6 @@ if ! shopt -oq posix; then
 fi
 
 complete -C ~/go/bin/gocomplete go
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 # Check if pam_systemd has failed to set XDG_RUNTIME_DIR
 if [ -z "$XDG_RUNTIME_DIR" ]; then
   echo 'XDG_RUNTIME_DIR is not set'
@@ -191,4 +185,7 @@ if [ ! -d "$XDG_RUNTIME_DIR" ]; then
   sudo chown "$UID:$UID" "$XDG_RUNTIME_DIR"
   echo "Created $XDG_RUNTIME_DIR"
 fi
-eval "$(mise activate bash)"
+
+if command -v mise > /dev/null; then
+  eval "$(mise activate bash)"
+fi

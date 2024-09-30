@@ -17,29 +17,15 @@ git: # Install git
 		$@ --version
 	fi
 
-.PHONY: asdf
-asdf: git # Install asdf
-	@dest=$(HOME)/.asdf
-	if [ ! -d $$dest ]; then
-		git clone https://github.com/asdf-vm/asdf.git $$dest --branch v0.14.0
-		. "$$dest/asdf.sh"
-		. "$$dest/completions/asdf.bash"
+.PHONY: mise
+mise: # Install mise
+	@if ! command -v $@ >/dev/null; then
+		curl https://mise.run | sh
+		~/.local/bin/mise --version
 	fi
 	if [ "$(filter $@,$(MAKECMDGOALS))" ]; then
-		echo $$dest
 		$@ --version
 	fi
-
-.PHONY: fzf
-fzf: git # Install fzf
-	@dest=$(HOME)/.fzf
-	if [ ! -d $$dest ]; then
-		git clone --depth 1 https://github.com/junegunn/fzf.git $$dest
-		$$dest/fzf/install
-		source $$dest/.bashrc
-	fi
-	echo $$dest
-	$@ --version
 
 .PHONY: docker
 docker:
@@ -74,19 +60,21 @@ gh: # Install gh
 	fi
 	$@ --version
 
-rust: asdf # Install rust
+.PHONY: rust
+rust: mise # Install rust
 	@name=rust
 	version=1.79.0
-	asdf plugin-add rust
-	asdf install $$name $$version
-	asdf global $$name $$version
+	mise use -g $$name@latest
 	if [ "$(filter $@,$(MAKECMDGOALS))" ]; then
-		$@ --version
+		if command -v rust-analyzer >/dev/null; then
+			rustup component add rust-analyzer
+		fi
+		rust-analyzer --version
 	fi
 
 .PHONY: zellij
 zellij: rust # Install zellij, a terminal multiplexer
-	cargo install --locked zellij
+	cargo install --locked $@
 	$@ --version
 
 .PHONY: usage
@@ -94,27 +82,34 @@ usage: rust # Install usage, a specification for CLIs
 	cargo install usage-cli
 	$@ --version
 
+.PHONY: skim
+skim: rust # Install skim
+	cargo install $@
+	sk --version
+
 .PHONY: python
-python: asdf # Install python
+python: mise # Install python
 	@name=python
-	version=3.12.0
-	asdf plugin-add $$name
-	asdf install $$name $$version
-	asdf global $$name $$version
+	mise use -g $$name@latest
 	pip install --upgrade pip
-	if [ "$(filter $@,$(MAKECMDGOALS))" ]; then
-		$@ --version
-	fi
 
 .PHONY: pgcli
 pgcli: python # Install pgcli
-	pip install pgcli
-	$@ --version
+	@pip install pgcli
+
+.PHONY: node
+node: mise # Install nodejs
+	@name=node
+	mise use -g $$name@latest
 
 .PHONY: vim
 vim: # Install vim
 	@echo "vim"
 	$@ --version
+
+.PHONY: vim-language-server
+vim-language-server: node # Install vim-language-server
+	@npm install -g $@
 
 .PHONY: link
 link: # Link dotfiles
