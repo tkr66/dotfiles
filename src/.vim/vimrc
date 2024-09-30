@@ -182,53 +182,63 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
 
   if executable('gopls')
     au User lsp_setup call lsp#register_server({
-          \ 'name': 'gopls',
-          \ 'cmd': {server_info->['gopls']},
-          \ 'allowlist': ['go'],
+          \   'name': 'gopls',
+          \   'cmd': {server_info->['gopls']},
+          \   'allowlist': ['go'],
           \ })
   endif
   if executable('pylsp')
     au User lsp_setup call lsp#register_server({
-          \ 'name': 'pylsp',
-          \ 'cmd': {server_info->['pylsp']},
-          \ 'allowlist': ['python'],
-          \ 'config': {'pylsp': {'plugins': {'autopep8': {'enabled': v:false}}}},
+          \   'name': 'pylsp',
+          \   'cmd': {server_info->['pylsp']},
+          \   'allowlist': ['python'],
+          \   'config': {'pylsp': {'plugins': {'autopep8': {'enabled': v:false}}}},
           \ })
   endif
   if executable('elixir-ls')
     au User lsp_setup call lsp#register_server({
-          \ 'name': 'elixir-ls',
-          \ 'cmd': {server_info->['elixir-ls']},
-          \ 'allowlist': ['elixir'],
-          \ 'semantic_highlight': v:true,
+          \   'name': 'elixir-ls',
+          \   'cmd': {server_info->['elixir-ls']},
+          \   'allowlist': ['elixir'],
+          \   'semantic_highlight': v:true,
           \ })
   endif
   if executable('rust-analyzer')
     au User lsp_setup call lsp#register_server({
-          \ 'name': 'rust-analyzer',
-          \ 'cmd': {server_info->['rust-analyzer']},
-          \ 'whitelist': ['rust'],
-          \ 'initialization_options': {
-          \   'check': {
-          \     'command': 'clippy',
-          \   },
-          \ },
+          \   'name': 'rust-analyzer',
+          \   'cmd': {server_info->['rust-analyzer']},
+          \   'whitelist': ['rust'],
+          \   'initialization_options': {
+          \     'cargo': {
+          \       'buildScripts': {
+          \         'enable': v:true,
+          \       },
+          \     },
+          \     'check': {
+          \       'command': 'clippy',
+          \     },
+          \     'completion': {
+          \       'snippets': {
+          \         'custom': json_decode(join(readfile(expand('~/.vim/snippets/rust.json'))))
+          \       }
+          \     },
+          \   }
           \ })
   endif
   if executable('sqls')
     au User lsp_setup call lsp#register_server({
-          \ 'name': 'sqls',
-          \ 'cmd': {server_info->['sqls']},
-          \ 'whitelist': ['sql'],
+          \   'name': 'sqls',
+          \   'cmd': {server_info->['sqls']},
+          \   'whitelist': ['sql'],
           \ })
   endif
   if executable('vim-language-server')
     au User lsp_setup call lsp#register_server({
-          \ 'name': 'vimls',
-          \ 'cmd': {server_info->
-          \ [&shell, &shellcmdflag, 'vim-language-server --stdio']},
-          \ 'allowlist': ['vim'],
-          \ 'semantic_highlight': v:true,
+          \   'name': 'vimls',
+          \   'cmd': {server_info->
+          \   [&shell, &shellcmdflag, 'vim-language-server --stdio']},
+          \   'allowlist': ['vim'],
+          \   'semantic_highlight': v:true,
           \ })
   endif
 
@@ -388,13 +398,13 @@ augroup rust
   fun! s:initialize_quickrun_config()
     if match(expand("%:p"), "examples") > -1
       let g:quickrun_config = {
-            \  "rust/cargo": {
+            \   "rust/cargo": {
             \     "command": "cargo",
             \     "exec": "%c run --example %s:t:r",
             \     "tempfile": "%{expand('%:p:h')}/%{strftime('%Y%m%d%H%M%S')}.rs",
             \     "hook/time/enable": "1",
             \   }
-            \}
+            \ }
       execute 'nnoremap <silent> <Leader>x :QuickRun rust/cargo<CR>'
     endif
   endfun
@@ -403,9 +413,9 @@ augroup rust
 augroup END
 
 let g:quickrun_config = {
-      \  "make": {
+      \   "make": {
       \     "command": "make",
       \     "exec": "%c %o",
       \     "hook/time/enable": "1",
       \   }
-      \}
+      \ }
