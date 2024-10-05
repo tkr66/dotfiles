@@ -21,7 +21,6 @@ blue(){
 }
 
 # aliases
-alias clip="/mnt/c/Windows/System32/clip.exe"
 alias explorer="/mnt/c/Windows/explorer.exe"
 alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 if command -v vim >/dev/null; then
@@ -173,17 +172,14 @@ fi
 complete -C ~/go/bin/gocomplete go
 # Check if pam_systemd has failed to set XDG_RUNTIME_DIR
 if [ -z "$XDG_RUNTIME_DIR" ]; then
-  echo 'XDG_RUNTIME_DIR is not set'
   export XDG_RUNTIME_DIR="/run/user/$UID"
-  echo "Set XDG_RUNTIME_DIR to $XDG_RUNTIME_DIR"
 fi
 
 # Ensure the directory exists for zellij to start properly
 if [ ! -d "$XDG_RUNTIME_DIR" ]; then
-  echo "$XDG_RUNTIME_DIR does not exist"
   sudo mkdir -p "$XDG_RUNTIME_DIR"
   sudo chown "$UID:$UID" "$XDG_RUNTIME_DIR"
-  echo "Created $XDG_RUNTIME_DIR"
+  ln -sf /mnt/wslg/runtime-dir/wayland-0 /run/user/$UID
 fi
 
 if command -v mise > /dev/null; then

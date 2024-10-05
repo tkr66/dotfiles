@@ -6,6 +6,12 @@ help:
 		| sort \
 		| awk 'BEGIN {FS = ":.*?#"}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
+.PHONY: base
+base: #
+	sudo apt install -y \
+		wl-clipboard \
+		gimp
+
 .PHONY: git
 git: # Install git
 	@if ! command -v $@ >/dev/null; then

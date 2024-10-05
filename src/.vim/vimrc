@@ -15,17 +15,12 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'lotabout/skim'
 Plug 'lotabout/skim.vim'
-Plug 'guns/xterm-color-table.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'sqls-server/sqls.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'sebdah/vim-delve'
-Plug 'elixir-editors/vim-elixir'
-Plug 'godlygeek/tabular'
-Plug 'preservim/vim-markdown'
+Plug 'sqls-server/sqls.vim'
 call plug#end()
 
 let mapleader = " "
@@ -165,7 +160,7 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
     nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
     nmap <buffer> = <plug>(lsp-document-format)
     nmap <buffer> g[ <plug>(lsp-previous-diagnostic)
-    nmap <buffer> g] <plug>(lsp-previous-diagnostic)
+    nmap <buffer> g] <plug>(lsp-next-diagnostic)
     nnoremap <buffer> <expr><c-e> GetPopupId(0) > -1 ? lsp#scroll(+1) : "\<C-E>"
     nnoremap <buffer> <expr><c-d> GetPopupId(0) > -1 ? lsp#scroll(+4) : "\<C-D>"
     nnoremap <buffer> <expr><c-y> GetPopupId(0) > -1 ? lsp#scroll(-1) : "\<C-Y>"
@@ -255,14 +250,12 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
   let g:lsp_diagnostics_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
   let g:lsp_diagnostics_echo_delay = 0
-  let g:lsp_diagnostics_float_cursor = 1
+  let g:lsp_diagnostics_float_cursor = 0
   let g:lsp_diagnostics_float_delay = 0
   let g:lsp_diagnostics_signs_delay = 0
   let g:lsp_inlay_hints_enabled = 0
   let g:lsp_diagnostics_virtual_text_enabled = 0
   let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
-  let g:lsp_diagnostics_virtual_text_align = "after"
-  let g:lsp_diagnostics_virtual_text_wrap = "wrap"
 endif
 
 nnoremap <silent> <C-[><C-[> :noh<CR>
