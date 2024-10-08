@@ -191,3 +191,4 @@ if command -v mise > /dev/null; then
 fi
 
 stty -ixon
+export PATH="$PATH:/opt/mssql-tools18/bin"

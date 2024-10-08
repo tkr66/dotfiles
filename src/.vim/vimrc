@@ -21,6 +21,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'sqls-server/sqls.vim'
+Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
 
 let mapleader = " "
