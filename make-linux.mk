@@ -131,6 +131,23 @@ vim: git # Install vim
 vim-language-server: node # Install vim-language-server
 	@npm install -g $@
 
+.PHONY: v
+v: git # Install v, z for vim
+	@if ! command -v $@ >/dev/null; then
+		t=$$(mktemp -d)
+		git clone --depth=1 https://github.com/rupa/v $$t
+		sudo mv "$$t/v" /usr/local/bin
+		sudo mv "$$t/v.1" /usr/local/man/man1
+		sudo rm -rf $$t
+	fi
+
+.PHONY: z
+z: git # Install z, jump around
+	@if ! command -v $@ >/dev/null; then
+		git clone --depth=1 https://github.com/rupa/z ~/z
+		sudo cp ~/z/z.1 /usr/local/man/man1
+	fi
+
 .PHONY: link
 link: # Link dotfiles
 	@files=$$(find ./src -type f | sort)

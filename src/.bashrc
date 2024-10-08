@@ -192,3 +192,4 @@ fi
 
 stty -ixon
 export PATH="$PATH:/opt/mssql-tools18/bin"
+. ~/z/z.sh
