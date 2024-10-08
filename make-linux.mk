@@ -7,8 +7,16 @@ help:
 		| awk 'BEGIN {FS = ":.*?#"}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: base
-base: #
-	sudo apt install -y \
+base: # Install base packages
+	sudo apt update && apt install -y \
+		libxt-dev \
+		libtool-bin \
+		software-properties-common \
+		clang
+
+.PHONY: util
+util: # Install utilities
+	sudo apt update && apt install -y \
 		wl-clipboard \
 		gimp
 
@@ -109,8 +117,14 @@ node: mise # Install nodejs
 	mise use -g $$name@latest
 
 .PHONY: vim
-vim: # Install vim
-	@echo "vim"
+vim: git # Install vim
+	@if ! command -v $@ >/dev/null; then
+		t=$$(mktemp -d)
+		git clone --depth=1 https://github.com/vim/vim.git $$t
+		cd "$$t/src"
+		sudo make install
+		sudo rm -rf $$t
+	fi
 	$@ --version
 
 .PHONY: vim-language-server
@@ -146,8 +160,7 @@ link: # Link dotfiles
 
 .PHONY: test
 test: docker # Test this Makefile on a docekr container
-	@docker compose -f ./compose-ubuntu.yaml up -d --build
-	for t in git; do
-		docker compose exec -it app sh -c "cd /dots; make $$t"
-	done
-	docker compose -f ./compose-ubuntu.yaml down
+	@docker run --rm -i -v .:/dots -w /dots maketest:v1 bash -s <<EOF
+		make base
+		make vim
+	EOF
