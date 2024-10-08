@@ -61,5 +61,16 @@
     ],
     "description": "Insert a main function",
     "scope": "type"
+  },
+  "function": {
+    "prefix": "fn",
+    "body": [
+      "$1 fn $2($3) $4 {",
+      "\tunimplemented!();",
+      "\t$5",
+      "}"
+    ],
+    "description": "Insert a function",
+    "scope": "type"
   }
 }
