@@ -1,4 +1,4 @@
 *.swp
-*.vim
 *.patch
 *.orig
+Session.vim
