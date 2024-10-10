@@ -1,39 +1,31 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-# functions
-get_current_git_branch(){
-    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        echo "$(git branch | grep -Po '(?<=\*\s).*$')"
-    fi
-}
 
 mcd() {
     mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
 }
 
-cyan(){
-    echo -e "\[\e[1;36m\]$1\[\e[m\]"
-}
-
-blue(){
-    echo -e "\[\e[1;34m\]$1\[\e[m\]"
-}
-
-# aliases
-alias explorer="/mnt/c/Windows/explorer.exe"
 alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 if command -v vim >/dev/null; then
   export GIT_EDITOR=$(command -v vim)
   export EDITOR=$(command -v vim)
 fi
 
-# export variables
-export PS1="$(cyan \\w)\[\e[91m\]\$(__git_ps1)\[\e[m\]\n$(blue '>') "
 export PROMPT_COMMAND='echo -en "\e[3 q""\n"'
 
-export GIT_PS1_SHOWDIRTYSTATE=1
-export KERL_BUILD_DOCS=yes
+if command -v git >/dev/null; then
+  export GIT_PS1_SHOWDIRTYSTATE=1
+  export GIT_PS1_SHOWSTASHSTATE=1
+  export GIT_PS1_SHOWUNTRACKEDFILES=1
+  export GIT_PS1_SHOWCOLORHINTS=1
+  export GIT_PS1_SHOWUPSTREAM=auto
+   export PS1=$(printf '%s %s\n%s ' \
+     '\[\e[1;36m\]\w\[\e[m\]' \
+     '$(__git_ps1 "(%s)")' \
+     '\[\e[1;34m\]>\[\e[m\]' \
+  )
+fi
 
 if command -v pwsh 2>&1 >/dev/null; then
   # Remove CR using NoNewLine option to avoid moving cursor to the beginning of the line
