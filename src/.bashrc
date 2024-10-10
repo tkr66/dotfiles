@@ -6,6 +6,19 @@ mcd() {
     mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
 }
 
+skgrep(){
+  local dir
+  if [ -z "$1" ]; then
+    dir="."
+  else
+    dir="$1"
+  fi
+  sk --ansi -i -c \
+    "grep -rI --color=always --line-number '{}' $dir" \
+    --delimiter : \
+    --preview "bat --style=full {1}"
+}
+
 alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 if command -v vim >/dev/null; then
   export GIT_EDITOR=$(command -v vim)
