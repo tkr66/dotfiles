@@ -297,14 +297,22 @@ smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
-function s:toupper_prev_word()
+function s:prev_word()
   let col = getpos('.')[2]
   let substring = getline('.')[0:col-1]
   let word = matchstr(substring, '\v<(\k(<)@!)*$')
-  return toupper(word)
+  return word
 endfunction
 
-inoremap <expr> <C-L> "<C-W>" .. <SID>toupper_prev_word()
+function s:toggle_case(value)
+  if matchstr(a:value, '\u') == ""
+    return toupper(a:value)
+  else
+    return tolower(a:value)
+  endif
+endfunction
+
+inoremap <expr> <C-L> "<C-W>" .. <SID>toggle_case(<SID>prev_word())
 
 fun! PrintSyntaxGroup()
   let l:s = synID(line('.'), col('.'), 1)
