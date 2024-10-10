@@ -20,7 +20,6 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'sqls-server/sqls.vim'
 Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
 
@@ -219,13 +218,6 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
           \       }
           \     },
           \   }
-          \ })
-  endif
-  if executable('sqls')
-    au User lsp_setup call lsp#register_server({
-          \   'name': 'sqls',
-          \   'cmd': {server_info->['sqls']},
-          \   'whitelist': ['sql'],
           \ })
   endif
   if executable('vim-language-server')
