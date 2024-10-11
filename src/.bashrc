@@ -33,10 +33,10 @@ if command -v git >/dev/null; then
   export GIT_PS1_SHOWUNTRACKEDFILES=1
   export GIT_PS1_SHOWCOLORHINTS=1
   export GIT_PS1_SHOWUPSTREAM=auto
-   export PS1=$(printf '%s %s\n%s ' \
-     '\[\e[1;36m\]\w\[\e[m\]' \
-     '$(__git_ps1 "(%s)")' \
-     '\[\e[1;34m\]>\[\e[m\]' \
+  export PS1=$(printf '%s %s\n%s ' \
+    '\[\e[1;36m\]\w\[\e[m\]' \
+    '$(__git_ps1 "(%s)")' \
+    '\[\e[1;34m\]>\[\e[m\]' \
   )
 fi
 
