@@ -6,17 +6,17 @@ mcd() {
     mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
 }
 
-skgrep(){
+skgrep() {
   local dir
   if [ -z "$1" ]; then
     dir="."
   else
     dir="$1"
   fi
-  sk --ansi -i -c \
-    "grep -rI --color=always --line-number '{}' $dir" \
+  sk --ansi \
+    --interactive --cmd "grep --recursive --binary-files=without-match --color=always --line-number '{}' $dir" \
     --delimiter : \
-    --preview "bat --style=full {1}"
+    --preview "bat --color=always --style=plain --line-range=:500 {1} --highlight-line {2}"
 }
 
 alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
@@ -198,3 +198,17 @@ fi
 stty -ixon
 export PATH="$PATH:/opt/mssql-tools18/bin"
 . ~/z/z.sh
+
+if command -v sk >/dev/null; then
+  export SKIM_DEFAULT_COMMAND="git ls-tree -r --name-only HEAD || find . -type f"
+  export SKIM_DEFAULT_OPTIONS="
+  --bind=ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down
+  --bind=ctrl-a:toggle-all,ctrl-alt-p:toggle-preview
+  --multi
+  "
+  if command -v bat >/dev/null; then
+    SKIM_DEFAULT_OPTIONS+="--preview 'bat --color=always --style=plain --line-range=:500 {1}'"
+  else
+    SKIM_DEFAULT_OPTIONS+="--preview 'head --lines=500 {1}'"
+  fi
+fi
