@@ -212,3 +212,10 @@ if command -v sk >/dev/null; then
     SKIM_DEFAULT_OPTIONS+="--preview 'head --lines=500 {1}'"
   fi
 fi
+
+if command -v bat >/dev/null; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  ghelp() {
+    "$@" --help 2>&1 | bat -l help -p
+  }
+fi
