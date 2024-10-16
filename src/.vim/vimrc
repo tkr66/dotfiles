@@ -124,6 +124,10 @@ augroup git
   autocmd FileType gitconfig
         \ set noexpandtab
 augroup END
+augroup kdl
+  au!
+  autocmd FileType kdl set tabstop=4
+augroup END
 autocmd! BufReadPre *.go
       \ let g:go_highlight_functions = 1 |
       \ let g:go_highlight_function_calls = 1 |
