@@ -226,4 +226,12 @@ if command -v bat >/dev/null; then
   ghelp() {
     "$@" --help 2>&1 | bat -l help -p
   }
+  _ghelp(){
+    local cur prev
+    _get_comp_words_by_ref -n : cur prev
+    if [ "$prev" == "ghelp" ] && [ "$cur" != "" ]; then
+      COMPREPLY=($(compgen -c "$cur"))
+    fi
+  }
+  complete -F _ghelp ghelp
 fi
