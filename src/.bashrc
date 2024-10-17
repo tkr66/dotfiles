@@ -6,6 +6,14 @@ mcd() {
     mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
 }
 
+v() {
+  grep '^[>]' ~/.viminfo \
+    | cut -d " " -f 2 \
+    | sed "s|~|$HOME|" \
+    | xargs -I {} sh -c "test -f '{}' && echo '{}'" \
+    | sk
+}
+
 skgrep() {
   local dir
   if [ -z "$1" ]; then
