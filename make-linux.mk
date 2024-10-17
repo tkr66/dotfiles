@@ -101,6 +101,11 @@ skim: rust # Install skim
 	cargo install $@
 	sk --version
 
+.PHONY: hyperfine
+hyperfine: rust # Install hyperfine, a cli benchmarking tool
+	cargo install --locked $@
+	$@ --version
+
 .PHONY: python
 python: mise # Install python
 	@name=python
