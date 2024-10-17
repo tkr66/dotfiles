@@ -42,7 +42,7 @@ mise: # Install mise
 	fi
 
 .PHONY: docker
-docker:
+docker: # Install docker
 	@if ! command -v $@ >/dev/null; then
 		# Add Docker's official GPG key:
 		sudo apt-get update
