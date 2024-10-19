@@ -52,60 +52,6 @@ set showtabline=2
 set confirm
 set mouse=a
 
-fun! GetPopupId(n)
-  let pops = popup_list()
-  if len(pops) == 0
-    return -1
-  endif
-  return pops[a:n]
-endfun
-
-fun! PopupScroll(id,n)
-  let pos = popup_getpos(a:id)
-  let firstline = pos.firstline + a:n
-  if firstline < 1
-    let firstline = 1
-  elseif firstline > pos.lastline
-    let firstline = pos.lastline
-  endif
-  call popup_setoptions(a:id, {'firstline': firstline})
-endfun
-
-fun! PopupFilterScroll(id, key)
-  if a:key == "j"
-    call PopupScroll(a:id,1)
-    return 1
-  endif
-  if a:key == "\<C-D>"
-    call PopupScroll(a:id,10)
-    return 1
-  endif
-  if a:key == "k"
-    call PopupScroll(a:id,-1)
-    return 1
-  endif
-  if a:key == "\<C-U>"
-    call PopupScroll(a:id,-10)
-    return 1
-  endif
-  if a:key =="x"
-    call popup_close(a:id)
-    return 1
-  endif
-  return 1
-endfun
-
-fun! AttachPopupScroller(id) abort
-  " Want to handle the time when a popup window is opened.
-  " There is a possibility that the first element might be not
-  " opened popup window.
-  let winid = GetPopupId(0)
-  if winid > 0
-    call timer_stop(a:id)
-    call popup_setoptions(winid, #{filter: 'PopupFilterScroll'})
-  endif
-endfun
-
 set t_Co=256
 syntax on
 autocmd! ColorScheme iceberg
@@ -166,14 +112,14 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
     nmap <buffer> = <plug>(lsp-document-format)
     nmap <buffer> g[ <plug>(lsp-previous-diagnostic)
     nmap <buffer> g] <plug>(lsp-next-diagnostic)
-    nnoremap <buffer> <expr><c-e> GetPopupId(0) > -1 ? lsp#scroll(+1) : "\<C-E>"
-    nnoremap <buffer> <expr><c-d> GetPopupId(0) > -1 ? lsp#scroll(+4) : "\<C-D>"
-    nnoremap <buffer> <expr><c-y> GetPopupId(0) > -1 ? lsp#scroll(-1) : "\<C-Y>"
-    nnoremap <buffer> <expr><c-u> GetPopupId(0) > -1 ? lsp#scroll(-4) : "\<C-U>"
-    inoremap <buffer> <expr><c-e> GetPopupId(0) > -1 ? lsp#scroll(+1) : "\<C-E>"
-    inoremap <buffer> <expr><c-d> GetPopupId(0) > -1 ? lsp#scroll(+4) : "\<C-D>"
-    inoremap <buffer> <expr><c-y> GetPopupId(0) > -1 ? lsp#scroll(-1) : "\<C-Y>"
-    inoremap <buffer> <expr><c-u> GetPopupId(0) > -1 ? lsp#scroll(-4) : "\<C-U>"
+    nnoremap <buffer> <expr><c-e> len(popup_list()) > 0 ? lsp#scroll(+1) : "\<C-E>"
+    nnoremap <buffer> <expr><c-d> len(popup_list()) > 0 ? lsp#scroll(+4) : "\<C-D>"
+    nnoremap <buffer> <expr><c-y> len(popup_list()) > 0 ? lsp#scroll(-1) : "\<C-Y>"
+    nnoremap <buffer> <expr><c-u> len(popup_list()) > 0 ? lsp#scroll(-4) : "\<C-U>"
+    inoremap <buffer> <expr><c-e> len(popup_list()) > 0 ? lsp#scroll(+1) : "\<C-E>"
+    inoremap <buffer> <expr><c-d> len(popup_list()) > 0 ? lsp#scroll(+4) : "\<C-D>"
+    inoremap <buffer> <expr><c-y> len(popup_list()) > 0 ? lsp#scroll(-1) : "\<C-Y>"
+    inoremap <buffer> <expr><c-u> len(popup_list()) > 0 ? lsp#scroll(-4) : "\<C-U>"
     inoremap <expr> <CR> pumvisible() ? asyncomplete#close_popup() : "\<CR>"
     autocmd! BufWritePre <buffer>
           \ call execute('LspCodeActionSync source.organizeImports') |
