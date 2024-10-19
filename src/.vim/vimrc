@@ -114,6 +114,10 @@ if has_key(g:plugs, 'vim-gitgutter')
     autocmd BufWritePost * GitGutter
   augroup END
 endif
+if has_key(g:plugs, 'vim-floaterm')
+  nnoremap <silent> <F12> :FloatermToggle<CR>
+  tnoremap <silent> <F12> <C-\><C-n>:FloatermToggle<CR>
+endif
 if has_key(g:plugs, 'skim')
 endif
 if has_key(g:plugs, 'skim.vim')
