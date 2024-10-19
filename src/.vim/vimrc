@@ -53,8 +53,6 @@ set mouse=a
 
 set t_Co=256
 syntax on
-autocmd! ColorScheme iceberg
-      \ hi LineNr ctermfg=140
 colorscheme iceberg
 set background=dark
 
