@@ -69,7 +69,9 @@ augroup git
 augroup END
 augroup kdl
   au!
-  autocmd FileType kdl set tabstop=4
+  autocmd FileType kdl
+        \ set tabstop=4
+augroup END
 augroup go
   autocmd! BufReadPre *.go
         \ let g:go_highlight_functions = 1 |
@@ -92,6 +94,16 @@ augroup END
 
 if !empty(globpath(&rtp, 'autoload/lsp.vim'))
   fun! s:on_lsp_buffer_enabled() abort
+    let g:lsp_diagnostics_enabled = 1
+    let g:lsp_diagnostics_echo_cursor = 1
+    let g:lsp_diagnostics_echo_delay = 0
+    let g:lsp_diagnostics_float_cursor = 0
+    let g:lsp_diagnostics_float_delay = 0
+    let g:lsp_diagnostics_signs_delay = 0
+    let g:lsp_inlay_hints_enabled = 0
+    let g:lsp_diagnostics_virtual_text_enabled = 0
+    let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
+    let g:lsp_format_sync_timeout = 1000
     let g:vsnip_snippet_dir = '$HOME/.vim/snippets'
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
@@ -190,15 +202,6 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
         \ let lsp_log_file = expand('~/lsp.log') |
         \ :vnew | execute "ter ++curwin tail -f " . expand('~/lsp.log') |
         \ :wincmd p
-  let g:lsp_diagnostics_enabled = 1
-  let g:lsp_diagnostics_echo_cursor = 1
-  let g:lsp_diagnostics_echo_delay = 0
-  let g:lsp_diagnostics_float_cursor = 0
-  let g:lsp_diagnostics_float_delay = 0
-  let g:lsp_diagnostics_signs_delay = 0
-  let g:lsp_inlay_hints_enabled = 0
-  let g:lsp_diagnostics_virtual_text_enabled = 0
-  let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
 endif
 
 nnoremap <silent> <C-[><C-[> :noh<CR>
