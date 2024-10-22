@@ -62,7 +62,7 @@ if has_key(g:plugs, 'vim-startify')
   let g:startify_change_to_dir = 1
   let g:startify_change_cmd = 'lcd'
   let g:startify_bookmarks = [
-        \ { 'c': '~/.vim/vimrc' },
+        \ { 'c': '~/dotfiles/src/.vim/vimrc' },
         \ ]
 endif
 if has_key(g:plugs, 'iceberg.vim')
