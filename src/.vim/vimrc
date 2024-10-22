@@ -54,6 +54,7 @@ set shiftwidth=0
 set showtabline=2
 set confirm
 set mouse=a
+set termwinkey=<C-L>
 syntax on
 set background=dark
 
@@ -119,6 +120,7 @@ endif
 if has_key(g:plugs, 'vim-floaterm')
   nnoremap <silent> <F12> :FloatermToggle<CR>
   tnoremap <silent> <F12> <C-\><C-n>:FloatermToggle<CR>
+  autocmd! User FloatermOpen if exists('&termwinkey') | call setbufvar(bufnr('%'), '&termwinkey','<C-L>') | endif
 endif
 if has_key(g:plugs, 'fzf')
   " An action can be a reference to a function that processes selected lines
@@ -207,7 +209,7 @@ if has_key(g:plugs, 'vim-lsp')
   endfun
 
   if executable('pylsp')
-    au User lsp_setup call lsp#register_server({
+    au! User lsp_setup call lsp#register_server({
           \   'name': 'pylsp',
           \   'cmd': {server_info->['pylsp']},
           \   'allowlist': ['python'],
@@ -215,7 +217,7 @@ if has_key(g:plugs, 'vim-lsp')
           \ })
   endif
   if executable('rust-analyzer')
-    au User lsp_setup call lsp#register_server({
+    au! User lsp_setup call lsp#register_server({
           \   'name': 'rust-analyzer',
           \   'cmd': {server_info->['rust-analyzer']},
           \   'whitelist': ['rust'],
@@ -241,7 +243,7 @@ if has_key(g:plugs, 'vim-lsp')
     augroup END
   endif
   if executable('vim-language-server')
-    au User lsp_setup call lsp#register_server({
+    au! User lsp_setup call lsp#register_server({
           \   'name': 'vimls',
           \   'cmd': {server_info->
           \   [&shell, &shellcmdflag, 'vim-language-server --stdio']},
