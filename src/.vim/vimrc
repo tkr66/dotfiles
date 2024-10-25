@@ -209,7 +209,7 @@ if has_key(g:plugs, 'vim-lsp')
   endfun
 
   if executable('pylsp')
-    au! User lsp_setup call lsp#register_server({
+    au User lsp_setup call lsp#register_server({
           \   'name': 'pylsp',
           \   'cmd': {server_info->['pylsp']},
           \   'allowlist': ['python'],
@@ -217,7 +217,7 @@ if has_key(g:plugs, 'vim-lsp')
           \ })
   endif
   if executable('rust-analyzer')
-    au! User lsp_setup call lsp#register_server({
+    au User lsp_setup call lsp#register_server({
           \   'name': 'rust-analyzer',
           \   'cmd': {server_info->['rust-analyzer']},
           \   'whitelist': ['rust'],
@@ -243,7 +243,7 @@ if has_key(g:plugs, 'vim-lsp')
     augroup END
   endif
   if executable('vim-language-server')
-    au! User lsp_setup call lsp#register_server({
+    au User lsp_setup call lsp#register_server({
           \   'name': 'vimls',
           \   'cmd': {server_info->
           \   [&shell, &shellcmdflag, 'vim-language-server --stdio']},
