@@ -1,0 +1,10 @@
+layout {
+    pane name=""
+    pane split_direction="vertical" {
+        pane name=""
+        pane command="htop"
+    }
+    pane size=1 borderless=true {
+        plugin location="compact-bar"
+    }
+}
