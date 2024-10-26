@@ -198,14 +198,14 @@ if has_key(g:plugs, 'vim-lsp')
     nmap <buffer> = <plug>(lsp-document-format)
     nmap <buffer> g[ <plug>(lsp-previous-diagnostic)
     nmap <buffer> g] <plug>(lsp-next-diagnostic)
-    nnoremap <buffer> <expr><c-e> pumvisible() != 0 ? lsp#scroll(+1) : "\<C-E>"
-    nnoremap <buffer> <expr><c-d> pumvisible() != 0 ? lsp#scroll(+4) : "\<C-D>"
-    nnoremap <buffer> <expr><c-y> pumvisible() != 0 ? lsp#scroll(-1) : "\<C-Y>"
-    nnoremap <buffer> <expr><c-u> pumvisible() != 0 ? lsp#scroll(-4) : "\<C-U>"
-    inoremap <buffer> <expr><c-e> pumvisible() != 0 ? lsp#scroll(+1) : "\<C-E>"
-    inoremap <buffer> <expr><c-d> pumvisible() != 0 ? lsp#scroll(+4) : "\<C-D>"
-    inoremap <buffer> <expr><c-y> pumvisible() != 0 ? lsp#scroll(-1) : "\<C-Y>"
-    inoremap <buffer> <expr><c-u> pumvisible() != 0 ? lsp#scroll(-4) : "\<C-U>"
+    nnoremap <buffer> <expr><c-e> len(popup_list()) > 0 ? lsp#scroll(+1) : "\<C-E>"
+    nnoremap <buffer> <expr><c-d> len(popup_list()) > 0 ? lsp#scroll(+4) : "\<C-D>"
+    nnoremap <buffer> <expr><c-y> len(popup_list()) > 0 ? lsp#scroll(-1) : "\<C-Y>"
+    nnoremap <buffer> <expr><c-u> len(popup_list()) > 0 ? lsp#scroll(-4) : "\<C-U>"
+    inoremap <buffer> <expr><c-e> len(popup_list()) > 0 ? lsp#scroll(+1) : "\<C-E>"
+    inoremap <buffer> <expr><c-d> len(popup_list()) > 0 ? lsp#scroll(+4) : "\<C-D>"
+    inoremap <buffer> <expr><c-y> len(popup_list()) > 0 ? lsp#scroll(-1) : "\<C-Y>"
+    inoremap <buffer> <expr><c-u> len(popup_list()) > 0 ? lsp#scroll(-4) : "\<C-U>"
   endfun
 
   if executable('pylsp')
@@ -343,9 +343,10 @@ nnoremap <C-H> gT
 nnoremap <silent> gb :call NextBuffer(1)<CR>
 nnoremap <silent> gB :call NextBuffer(-1)<CR>
 nnoremap <silent> g= :set lazyredraw<CR>gg=G`'zz:set nolazyredraw<CR>
-nnoremap <silent> gyy "+yy
-
+nnoremap <silent> gy "+y
 vnoremap <silent> gy "+y
+
+nnoremap <silent> gp :execute "r !wl-paste \| sed 's/\r//'"<CR>
 
 cnoremap <C-a> <C-b>
 
