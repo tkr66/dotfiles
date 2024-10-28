@@ -200,7 +200,7 @@ if command -v sk >/dev/null; then
   export SKIM_DEFAULT_COMMAND="git ls-tree -r --name-only HEAD || find . -type f"
   export SKIM_DEFAULT_OPTIONS="
   --bind=ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down
-  --bind=ctrl-a:toggle-all,ctrl-alt-p:toggle-preview
+  --bind=ctrl-a:select-all,alt-a:deselect-all,alt-p:toggle-preview
   --multi
   "
   if command -v bat >/dev/null; then
