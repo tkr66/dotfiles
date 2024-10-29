@@ -133,11 +133,11 @@ if has_key(g:plugs, 'fzf')
     cc
   endfunction
   let g:fzf_action = {
-    \ 'ctrl-q': function('s:build_quickfix_list'),
-    \ 'ctrl-t': 'tab split',
-    \ 'ctrl-x': 'split',
-    \ 'ctrl-v': 'vsplit',
-    \ }
+        \ 'ctrl-q': function('s:build_quickfix_list'),
+        \ 'ctrl-t': 'tab split',
+        \ 'ctrl-x': 'split',
+        \ 'ctrl-v': 'vsplit',
+        \ }
 endif
 if has_key(g:plugs, 'fzf.vim')
   let g:fzf_vim = {}
