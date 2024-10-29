@@ -51,7 +51,6 @@ p=$(
 IFS=','
 a=(
   "$PATH",
-  "$HOME/go/bin",
   "$HOME/.local/bin",
   ""
   )
@@ -178,7 +177,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-complete -C ~/go/bin/gocomplete go
 # Check if pam_systemd has failed to set XDG_RUNTIME_DIR
 if [ -z "$XDG_RUNTIME_DIR" ]; then
   export XDG_RUNTIME_DIR="/run/user/$UID"

@@ -306,25 +306,6 @@ augroup rust
     autocmd BufEnter *.rs call s:initialize_quickrun_config()
   endif
 augroup END
-augroup go
-  au!
-  autocmd BufReadPre *.go
-        \ let g:go_highlight_functions = 1 |
-        \ let g:go_highlight_function_calls = 1 |
-        \ let g:go_highlight_types = 1 |
-        \ let g:go_highlight_operators = 1 |
-
-  fun! s:on_go_loaded() abort
-    hi goFunction ctermfg=214
-    hi goFunctionCall ctermfg=110
-    hi goTypeName ctermfg=140
-    hi goTypeConstructor ctermfg=140
-    hi goOperator ctermfg=110
-    syntax match Bracket /\[\|\]/
-    hi Bracket ctermfg=185
-  endfun
-  autocmd FileType go call s:on_go_loaded()
-augroup END
 augroup vba
   au!
   au BufReadPost *.bas,*.cls,*.dcm,*.frm edit ++enc=cp932 %
