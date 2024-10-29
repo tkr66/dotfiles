@@ -17,9 +17,10 @@ base: # Install base packages
 
 .PHONY: util
 util: # Install utilities
-	sudo apt update && apt install -y \
+	sudo apt update && sudo apt install -y \
 		wl-clipboard \
-		gimp
+		gimp \
+		wamerican \
 
 .PHONY: git
 git: # Install git
