@@ -1,3 +1,0 @@
-for f in $(find "$HOME/.config/bash_completion.d" -type l); do
-  . $f
-done

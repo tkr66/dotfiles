@@ -168,7 +168,6 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-BASH_COMPLETION_USER_FILE="$HOME/.config/bash_completion"
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -225,3 +224,20 @@ if command -v bat >/dev/null; then
   }
   complete -F _ghelp ghelp
 fi
+
+# completions
+if command -v mise >/dev/null; then
+  source <(mise completions bash)
+fi
+if command -v rustup >/dev/null; then
+  source <(rustup completions bash rustup)
+  source <(rustup completions bash cargo)
+fi
+if command -v zellij >/dev/null; then
+  source <(zellij setup --generate-completion bash)
+fi
+if command -v ghr >/dev/null; then
+  source <(ghr shell bash)
+  source <(ghr shell bash --completion)
+fi
+
