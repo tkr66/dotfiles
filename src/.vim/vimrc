@@ -57,6 +57,7 @@ set mouse=a
 set termwinkey=<C-L>
 syntax on
 set background=dark
+set termguicolors
 
 if has_key(g:plugs, 'vim-startify')
   let g:startify_change_to_vcs_root = 1
