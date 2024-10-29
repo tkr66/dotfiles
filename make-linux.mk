@@ -8,11 +8,12 @@ help:
 
 .PHONY: base
 base: # Install base packages
-	sudo apt update && apt install -y \
+	sudo apt update && sudo apt install -y \
 		libxt-dev \
 		libtool-bin \
 		software-properties-common \
-		clang
+		clang \
+		pkg-config \
 
 .PHONY: util
 util: # Install utilities
@@ -105,6 +106,11 @@ skim: rust # Install skim
 hyperfine: rust # Install hyperfine, a cli benchmarking tool
 	cargo install --locked $@
 	$@ --version
+
+.PHONY: ghr
+ghr: rust # Install ghr
+	cargo install $@
+	$@ version
 
 .PHONY: python
 python: mise # Install python
