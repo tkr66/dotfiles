@@ -52,7 +52,6 @@ IFS=','
 a=(
   "$PATH",
   "$HOME/go/bin",
-  "$HOME/.config/elixir/ls/rel",
   "$HOME/.local/bin",
   ""
   )
