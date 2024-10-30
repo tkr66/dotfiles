@@ -176,9 +176,9 @@ if has_key(g:plugs, 'vim-lsp')
   let g:lsp_diagnostics_float_cursor = 0
   let g:lsp_diagnostics_float_delay = 0
   let g:lsp_diagnostics_signs_delay = 0
-  let g:lsp_inlay_hints_enabled = 0
   let g:lsp_diagnostics_virtual_text_enabled = 0
   let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
+  let g:lsp_inlay_hints_enabled = 0
   let g:lsp_format_sync_timeout = 1000
   fun! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
