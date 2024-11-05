@@ -177,17 +177,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Check if pam_systemd has failed to set XDG_RUNTIME_DIR
-if [ -z "$XDG_RUNTIME_DIR" ]; then
-  export XDG_RUNTIME_DIR="/run/user/$UID"
-fi
-
-# Ensure the directory exists for zellij to start properly
-if [ ! -d "$XDG_RUNTIME_DIR" ]; then
-  sudo mkdir -p "$XDG_RUNTIME_DIR"
-  sudo chown "$UID:$UID" "$XDG_RUNTIME_DIR"
-  ln -sf /mnt/wslg/runtime-dir/wayland-0 /run/user/$UID
-fi
+create_xdg_runtime_dir() {
+  if [ -z "$XDG_RUNTIME_DIR" ]; then
+    export XDG_RUNTIME_DIR="/run/user/$UID"
+  fi
+  if [ ! -d "$XDG_RUNTIME_DIR" ]; then
+    sudo mkdir -p "$XDG_RUNTIME_DIR"
+    sudo chown "$UID:$UID" "$XDG_RUNTIME_DIR"
+    ln -sf /mnt/wslg/runtime-dir/wayland-0 /run/user/$UID
+  fi
+}
 
 if command -v mise > /dev/null; then
   eval "$(mise activate bash)"
