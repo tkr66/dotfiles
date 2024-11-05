@@ -2,62 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-mcd() {
-    mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
-}
-
-skgrep() {
-  local dir
-  if [ -z "$1" ]; then
-    dir="."
-  else
-    dir="$1"
-  fi
-  sk --ansi \
-    --interactive --cmd "grep --recursive --binary-files=without-match --color=always --line-number '{}' $dir" \
-    --delimiter : \
-    --preview "bat --color=always --style=plain --line-range=:500 {1} --highlight-line {2}"
-}
-
-alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
-if command -v vim >/dev/null; then
-  export GIT_EDITOR=$(command -v vim)
-  export EDITOR=$(command -v vim)
-fi
-
-export PROMPT_COMMAND='echo -en "\e[3 q""\n"'
-
-if command -v git >/dev/null; then
-  export GIT_PS1_SHOWDIRTYSTATE=1
-  export GIT_PS1_SHOWSTASHSTATE=1
-  export GIT_PS1_SHOWUNTRACKEDFILES=1
-  export GIT_PS1_SHOWCOLORHINTS=1
-  export GIT_PS1_SHOWUPSTREAM=auto
-  export PS1=$(printf '%s %s\n%s ' \
-    '\[\e[1;36m\]\w\[\e[m\]' \
-    '$(__git_ps1 "(%s)")' \
-    '\[\e[1;34m\]>\[\e[m\]' \
-  )
-fi
-
-if command -v pwsh 2>&1 >/dev/null; then
-  # Remove CR using NoNewLine option to avoid moving cursor to the beginning of the line
-  export WINHOME=$(wslpath $(pwsh -NoLogo -NoProfile -c \
-    'Write-Host -NoNewLine $env:USERPROFILE'))
-      export PATH="$PATH:$WINHOME/AppData/Local/Programs/Microsoft VS Code/bin"
-fi
-
-p=$(
-IFS=','
-a=(
-  "$PATH",
-  "$HOME/.local/bin",
-  ""
-  )
-  echo ${a[@]}
-)
-export PATH=$(echo $p | tr ' ' ':')
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -160,6 +104,63 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+mcd() {
+    mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
+}
+
+skgrep() {
+  local dir
+  if [ -z "$1" ]; then
+    dir="."
+  else
+    dir="$1"
+  fi
+  sk --ansi \
+    --interactive --cmd "grep --recursive --binary-files=without-match --color=always --line-number '{}' $dir" \
+    --delimiter : \
+    --preview "bat --color=always --style=plain --line-range=:500 {1} --highlight-line {2}"
+}
+
+alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
+if command -v vim >/dev/null; then
+  export GIT_EDITOR=$(command -v vim)
+  export EDITOR=$(command -v vim)
+fi
+
+export PROMPT_COMMAND='echo -en "\e[3 q""\n"'
+
+if command -v git >/dev/null; then
+  export GIT_PS1_SHOWDIRTYSTATE=1
+  export GIT_PS1_SHOWSTASHSTATE=1
+  export GIT_PS1_SHOWUNTRACKEDFILES=1
+  export GIT_PS1_SHOWCOLORHINTS=1
+  export GIT_PS1_SHOWUPSTREAM=auto
+  export PS1=$(printf '%s %s\n%s ' \
+    '\[\e[1;36m\]\w\[\e[m\]' \
+    '$(__git_ps1 "(%s)")' \
+    '\[\e[1;34m\]>\[\e[m\]' \
+  )
+fi
+
+if command -v pwsh 2>&1 >/dev/null; then
+  # Remove CR using NoNewLine option to avoid moving cursor to the beginning of the line
+  export WINHOME=$(wslpath $(pwsh -NoLogo -NoProfile -c \
+    'Write-Host -NoNewLine $env:USERPROFILE'))
+      export PATH="$PATH:$WINHOME/AppData/Local/Programs/Microsoft VS Code/bin"
+fi
+
+p=$(
+IFS=','
+a=(
+  "$PATH",
+  "$HOME/.local/bin",
+  ""
+  )
+  echo ${a[@]}
+)
+export PATH=$(echo $p | tr ' ' ':')
+
 
 if command -v mise > /dev/null; then
   eval "$(mise activate --shims bash)"
