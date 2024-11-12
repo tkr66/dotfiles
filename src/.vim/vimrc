@@ -260,6 +260,25 @@ if has_key(g:plugs, 'vim-lsp')
           \   'semantic_highlight': v:true,
           \ })
   endif
+  if executable('jdtls')
+      au User lsp_setup call lsp#register_server({
+          \ 'name': 'jdtls',
+          \ 'cmd': {server_info->['jdtls']},
+          \ 'allowlist': ['java'],
+          \ })
+    autocmd BufWritePre *.java
+          \ execute('LspCodeActionSync source.organizeImports') |
+          \ LspDocumentFormatSync
+    function! s:apply_workspaceEdit(context)
+        let l:command = get(a:context, 'command', {})
+        call lsp#utils#workspace_edit#apply_workspace_edit(l:command['arguments'][0])
+    endfunction
+    try
+      call lsp#register_command('java.apply.workspaceEdit', function('s:apply_workspaceEdit'))
+    catch /.*/
+    endtry
+  endif
+
   augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
@@ -330,6 +349,7 @@ augroup END
 nnoremap <silent> <C-[><C-[> :noh<CR>
 nnoremap <C-L> gt
 nnoremap <C-H> gT
+nnoremap <silent> <C-S> :update<CR>
 nnoremap <silent> gb :call NextBuffer(1)<CR>
 nnoremap <silent> gB :call NextBuffer(-1)<CR>
 nnoremap <silent> g= :set lazyredraw<CR>gg=G`'zz:set nolazyredraw<CR>
