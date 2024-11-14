@@ -54,7 +54,6 @@ set shiftwidth=0
 set showtabline=2
 set confirm
 set mouse=a
-set termwinkey=<C-L>
 syntax on
 set background=dark
 set termguicolors
@@ -129,7 +128,6 @@ if has_key(g:plugs, 'vim-floaterm')
 	tnoremap <silent> <F9> <C-\><C-n>:FloatermNext<CR>
   nnoremap <silent> <F12> :FloatermToggle<CR>
   tnoremap <silent> <F12> <C-\><C-n>:FloatermToggle<CR>
-  autocmd! User FloatermOpen if exists('&termwinkey') | call setbufvar(bufnr('%'), '&termwinkey','<C-L>') | endif
 endif
 if has_key(g:plugs, 'fzf')
   " An action can be a reference to a function that processes selected lines
