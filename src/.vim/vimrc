@@ -24,6 +24,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'chrisbra/csv.vim'
 call plug#end()
 
 let &t_SI = "\e[3 q"
