@@ -38,6 +38,18 @@
     "description": "Wrap the expression in an `Option::Some`",
     "scope": "expr"
   },
+  "Println": {
+    "postfix": "println",
+    "body": "println!(\"$0\", ${receiver})",
+    "description": "Wrap the expression in an `println! macro`",
+    "scope": "expr"
+  },
+  "PrintlnDbg": {
+    "postfix": "printlndbg",
+    "body": "println!(\"{:?}\", ${receiver})",
+    "description": "Wrap the expression in an `println! macro`",
+    "scope": "expr"
+  },
   "thread spawn": {
     "prefix": [
       "spawn",
