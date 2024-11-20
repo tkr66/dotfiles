@@ -1,7 +1,7 @@
 [include]
 	path = user.inc
 
-[includeIf "gitdir:~/workspace/work/"]
+[includeIf "gitdir:~/**/work/"]
 	path = user-work.inc
 
 [alias]
