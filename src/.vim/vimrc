@@ -73,7 +73,6 @@ if has_key(g:plugs, 'iceberg.vim')
   hi! link SpecialKey Special
 endif
 if has_key(g:plugs, 'vim-airline')
-  let g:airline_section_b = '%{strftime("%c")}'
 endif
 if has_key(g:plugs, 'vim-easymotion')
   " Turn on case-insensitive feature
