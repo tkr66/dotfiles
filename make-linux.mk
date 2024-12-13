@@ -143,6 +143,42 @@ vim: git # Install vim
 vim-language-server: node # Install vim-language-server
 	@npm install -g $@
 
+.PHONY: java
+java: mise # Install java
+	@name=java
+	version=latest
+	mise use -g $$name@$$version
+	if [ "$(filter $@,$(MAKECMDGOALS))" ]; then
+		$@ --version
+	fi
+
+.PHONY: eclipse.jdt.ls
+eclipse.jdt.ls: java # Install eclipse-jdt-ls
+	@curl -o ~/jdtls.tar.gz 'https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz'
+	tar xvf ~/jdtls.tar.gz -C ~/eclipse.jdt.ls
+	rm ~/jdtls.tar.gz
+	
+	cat <<EOF | sudo tee /usr/local/bin/jdtls >/dev/null
+	#!/bin/sh
+	
+	LAUNCHER=$$(find ~/eclipse.jdt.ls/plugins -executable -name 'org.eclipse.equinox.launcher_*.jar')
+	\$$(mise where java@latest)/bin/java \
+		-Declipse.application=org.eclipse.jdt.ls.core.id1 \
+		-Dosgi.bundles.defaultStartLevel=4 \
+		-Declipse.product=org.eclipse.jdt.ls.core.product \
+		-Dlog.protocol=true \
+		-Dlog.level=ALL \
+		-Xmx1G \
+		--add-modules=ALL-SYSTEM \
+		--add-opens java.base/java.util=ALL-UNNAMED \
+		--add-opens java.base/java.lang=ALL-UNNAMED \
+		-jar \$$LAUNCHER \
+		-configuration ~/eclipse.jdt.ls/config_linux \
+		-data ~/eclipse.jdt.ls/data
+	EOF
+	
+	sudo chmod +x /usr/local/bin/jdtls
+
 .PHONY: z
 z: git # Install z, jump around
 	@if ! command -v $@ >/dev/null; then

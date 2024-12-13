@@ -71,6 +71,7 @@ if has_key(g:plugs, 'iceberg.vim')
   colorscheme iceberg
   " Meta and special keys listed with ':map'
   hi! link SpecialKey Special
+  hi Normal guibg=NONE
 endif
 if has_key(g:plugs, 'vim-airline')
 endif
