@@ -7,7 +7,6 @@ endif
 
 call plug#begin()
 Plug 'mhinz/vim-startify'
-Plug 'cocopon/iceberg.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
@@ -55,8 +54,9 @@ set showtabline=2
 set confirm
 set mouse=a
 syntax on
+colorscheme habamax
 set background=dark
-set termguicolors
+highlight Normal ctermbg=NONE
 
 if has_key(g:plugs, 'vim-startify')
   let g:startify_change_to_vcs_root = 1
@@ -65,12 +65,6 @@ if has_key(g:plugs, 'vim-startify')
   let g:startify_bookmarks = [
         \ { 'c': '~/.vim/vimrc' },
         \ ]
-endif
-if has_key(g:plugs, 'iceberg.vim')
-  colorscheme iceberg
-  " Meta and special keys listed with ':map'
-  hi! link SpecialKey Special
-  hi Normal guibg=NONE
 endif
 if has_key(g:plugs, 'vim-airline')
 endif
