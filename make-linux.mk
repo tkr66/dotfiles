@@ -93,11 +93,6 @@ usage: rust # Install usage, a specification for CLIs
 	cargo install usage-cli
 	$@ --version
 
-.PHONY: skim
-skim: rust # Install skim
-	cargo install $@
-	sk --version
-
 .PHONY: hyperfine
 hyperfine: rust # Install hyperfine, a cli benchmarking tool
 	cargo install --locked $@
