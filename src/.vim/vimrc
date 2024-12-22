@@ -34,8 +34,6 @@ augroup cursor_shape
 augroup END
 
 set encoding=utf-8
-set showcmd
-set showmatch
 set scrolloff=0
 set ignorecase
 set smartcase
@@ -43,8 +41,8 @@ set hlsearch
 set incsearch
 set splitright
 set splitbelow
-set wildmenu
-set wildmode=longest,list,full
+set wildoptions=fuzzy
+set wildmode=list:full
 set backspace=indent,eol,start
 set list listchars=tab:\\u00BB\\x20,trail:\\u2601
 set expandtab
@@ -53,6 +51,7 @@ set shiftwidth=0
 set showtabline=2
 set confirm
 set mouse=a
+set relativenumber
 syntax on
 colorscheme habamax
 set background=dark
@@ -103,14 +102,6 @@ if has_key(g:plugs, 'vim-gitgutter')
   augroup END
 endif
 if has_key(g:plugs, 'vim-floaterm')
-	nnoremap <silent> <F4> :FloatermKill<CR>
-	tnoremap <silent> <F4> <C-\><C-n>:FloatermKill<CR>
-	nnoremap <silent> <F7> :FloatermNew<CR>
-	tnoremap <silent> <F7> <C-\><C-n>:FloatermNew<CR>
-	nnoremap <silent> <F8> :FloatermPrev<CR>
-	tnoremap <silent> <F8> <C-\><C-n>:FloatermPrev<CR>
-	nnoremap <silent> <F9> :FloatermNext<CR>
-	tnoremap <silent> <F9> <C-\><C-n>:FloatermNext<CR>
   nnoremap <silent> <F12> :FloatermToggle<CR>
   tnoremap <silent> <F12> <C-\><C-n>:FloatermToggle<CR>
 endif
@@ -304,10 +295,6 @@ augroup END
 augroup git_local
   au!
   autocmd FileType gitconfig set noexpandtab
-augroup END
-augroup kdl
-  au!
-  autocmd FileType kdl set tabstop=4
 augroup END
 
 nnoremap <silent> <C-[><C-[> :noh<CR>
