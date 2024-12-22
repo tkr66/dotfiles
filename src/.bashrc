@@ -233,9 +233,6 @@ if command -v rustup >/dev/null; then
   source <(rustup completions bash rustup)
   source <(rustup completions bash cargo)
 fi
-if command -v zellij >/dev/null; then
-  source <(zellij setup --generate-completion bash)
-fi
 if command -v ghr >/dev/null; then
   source <(ghr shell bash)
   source <(ghr shell bash --completion)

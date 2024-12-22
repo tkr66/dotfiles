@@ -88,11 +88,6 @@ rust: mise # Install rust
 		rust-analyzer --version
 	fi
 
-.PHONY: zellij
-zellij: rust # Install zellij, a terminal multiplexer
-	cargo install --locked $@
-	$@ --version
-
 .PHONY: usage
 usage: rust # Install usage, a specification for CLIs
 	cargo install usage-cli
