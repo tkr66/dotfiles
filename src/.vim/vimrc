@@ -43,7 +43,7 @@ set incsearch
 set splitright
 set splitbelow
 set wildoptions=fuzzy
-set wildmode=list:full
+set wildmode=list,full
 set backspace=indent,eol,start
 set list listchars=tab:\\u00BB\\x20,trail:\\u2601
 set expandtab
@@ -309,8 +309,6 @@ nnoremap <silent> gy "+y
 vnoremap <silent> gy "+y
 
 nnoremap <silent> gp :execute "r !wl-paste \| sed 's/\r//'"<CR>
-
-cnoremap <C-a> <C-b>
 
 function s:prev_word()
   let col = getpos('.')[2]
